@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "new": "cpp",
+        "qguiapplication": "cpp",
+        "qjsondocument": "cpp"
+    },
+    "[cpp]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "xaver.clang-format"
+    },
+    "editor.indentSize": "tabSize"
+}

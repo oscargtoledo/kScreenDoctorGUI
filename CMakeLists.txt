@@ -6,17 +6,28 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(QT_QML_GENERATE_QMLLS_INI ON)
 find_package(Qt6 REQUIRED COMPONENTS Quick)
 
+
+set(SOURCE_FILES 
+    src/main.cpp
+    src/kScreenDoctorParser.h
+    src/kScreenDoctorParser.cpp
+    src/KDisplay.cpp
+    src/KDisplay.h
+    src/ScreenConfigurator.cpp
+    src/ScreenConfigurator.h
+)
+
 qt_standard_project_setup(REQUIRES 6.8)
 
 qt_add_executable(appkScreenDoctorGUI
-    main.cpp
+    ${SOURCE_FILES}
 )
 
 qt_add_qml_module(appkScreenDoctorGUI
     URI kScreenDoctorGUI
     VERSION 1.0
     QML_FILES
-        Main.qml
+        qml/Main.qml
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
