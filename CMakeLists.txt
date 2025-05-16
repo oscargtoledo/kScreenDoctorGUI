@@ -3,6 +3,10 @@ cmake_minimum_required(VERSION 3.16)
 project(kScreenDoctorGUI VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_FLAGS_DEBUG_INIT "-Wall")
+set(CMAKE_BUILD_TYPE "Debug")
+# set(CMAKE_CXX_FLAGS "QT_QML_DEBUG")
+# set(CMAKE_CXX_FLAGS_INIT "QT_QML_DEBUG")
 set(QT_QML_GENERATE_QMLLS_INI ON)
 find_package(Qt6 REQUIRED COMPONENTS Quick)
 
@@ -28,6 +32,7 @@ qt_add_qml_module(appkScreenDoctorGUI
     VERSION 1.0
     QML_FILES
         qml/Main.qml
+        # RESOURCES resources.qrc
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
@@ -40,6 +45,10 @@ set_target_properties(appkScreenDoctorGUI PROPERTIES
     MACOSX_BUNDLE TRUE
     WIN32_EXECUTABLE TRUE
 )
+
+TARGET_COMPILE_DEFINITIONS(appkScreenDoctorGUI
+  PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
+
 
 target_link_libraries(appkScreenDoctorGUI
     PRIVATE Qt6::Quick

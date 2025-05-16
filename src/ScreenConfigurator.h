@@ -19,6 +19,14 @@ public:
   Q_INVOKABLE QList<KDisplay *> getDisplays() { return _displays; };
   void setDisplays(QList<KDisplay *> disps) { _displays = disps; }
 
+  Q_INVOKABLE bool displaysIntersecting(QRectF display1, QRectF display2) {
+    return display1.intersects(display2);
+  };
+
+  Q_INVOKABLE QRectF displayIntersection(QRectF display1, QRectF display2) {
+    return display1.intersected(display2);
+  };
+
   Q_INVOKABLE void handlePositionChange(QEventPoint point);
 signals:
   void displaysChanged();
