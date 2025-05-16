@@ -2,8 +2,10 @@
 #define SCREENCONFIGURATOR_H
 
 #include "kScreenDoctorParser.h"
+#include <QEventPoint>
 #include <QGuiApplication>
 #include <QList>
+#include <QPointer>
 #include <QQmlEngine>
 
 class ScreenConfigurator : public QObject {
@@ -17,6 +19,7 @@ public:
   Q_INVOKABLE QList<KDisplay *> getDisplays() { return _displays; };
   void setDisplays(QList<KDisplay *> disps) { _displays = disps; }
 
+  Q_INVOKABLE void handlePositionChange(QEventPoint point);
 signals:
   void displaysChanged();
 

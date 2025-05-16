@@ -2,7 +2,8 @@
     "files.associations": {
         "new": "cpp",
         "qguiapplication": "cpp",
-        "qjsondocument": "cpp"
+        "qjsondocument": "cpp",
+        "ostream": "cpp"
     },
     "[cpp]": {
         "editor.formatOnSave": true,

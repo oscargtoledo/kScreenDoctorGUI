@@ -72,6 +72,10 @@ ApplicationWindow {
 
                     visible: parent.containsDrag
                 }
+                onPositionChanged: {
+                    print(drag.x);
+                    print(drag.y);
+                }
             }
 
             Repeater {
@@ -81,13 +85,21 @@ ApplicationWindow {
                     id: display
                     required property int index
                     required property QtObject modelData
+                    property int downscaleRatio: 10
                     // required property string modelData
-                    width: 50
-                    height: 50
+                    width: modelData.size.width / downscaleRatio
+                    height: modelData.size.height / downscaleRatio
                     // z: mouseArea.drag.active || mouseArea.pressed ? 2 : 1
                     color: Qt.rgba(Math.random(), Math.random(), Math.random(), 1)
-                    x: Math.random() * (contents.width / 2 - 100)
-                    y: Math.random() * (contents.height - 100)
+                    // x: Math.random() * (contents.width / 2 - 100)
+                    x: modelData.pos.x / downscaleRatio
+                    y: modelData.pos.y / downscaleRatio
+                    Component.onCompleted: {
+                        // print(modelData.size);
+                        var outt = ((contents.width) / modelData.pos.x) * modelData.pos.x;
+                        print(outt);
+                    }
+                    // x: modelData.size[0]
                     property point beginDrag
                     property bool caught: false
                     border {
@@ -102,20 +114,37 @@ ApplicationWindow {
                         text: modelData.name
                         color: "white"
                     }
-                    Drag.active: dragArea.drag.active
-                    Drag.hotSpot.x: 10
-                    Drag.hotSpot.y: 10
+                    DragHandler {
+                        xAxis {
+                            minimum: 0
+                            maximum: contents.width - display.width
+                        }
+                        yAxis {
+                            minimum: 0
+                            maximum: contents.height - display.height
+                        }
+                        // onGrabChanged: (transition, point) => {
+                        //     print(transition);
+                        // }
+                        // onGrabChanged: (transition, point) => {
+                        //     ScreenConfigurator.handlePositionChange(point);
+                        // }
 
-                    MouseArea {
-                        id: dragArea
-                        anchors.fill: parent
-
-                        drag.minimumX: 0
-                        drag.minimumY: 0
-                        drag.maximumX: contents.width - display.width
-                        drag.maximumY: contents.height - display.height
-                        drag.target: parent
                     }
+                    // Drag.active: dragArea.drag.active
+                    // Drag.hotSpot.x: 10
+                    // Drag.hotSpot.y: 10
+
+                    // MouseArea {
+                    //     id: dragArea
+                    //     anchors.fill: parent
+
+                    //     drag.minimumX: 0
+                    //     drag.minimumY: 0
+                    //     drag.maximumX: contents.width - display.width
+                    //     drag.maximumY: contents.height - display.height
+                    //     drag.target: parent
+                    // }
                 }
             }
 
